@@ -1,18 +1,20 @@
 <template>
   <Header />
   <div class="container pt-4">
-    <h3>About this site</h3>
+    <h4>About this site</h4>
     <p>This website lets you put in a series of christmas light addresses, and get a Google Maps link in return that
       shows you the fastest way to see all the lights.</p>
     <p>This site runs entirely within your web-browser and works on routes up to {{ maxAddresses }} stops. If you need
       more stops, download your results and go again</p>
-    <h3>Get Started</h3>
+    <h4>Get Started</h4>
     <div class="accordion pt-4">
       <AccordionItem header="Step 1: Add Locations" id="locations" :show="true">
         <p>Step 1: Type in the addresses you wish to add. You may add up to {{ maxAddresses }} locations. If you need
           more locations, do the {{ maxAddresses }} first, then add the next {{ maxAddresses }}, and so on. </p>
         <p class="text-warning">When adding addresses, make sure they're spelled correctly, and fully. For example use
-          <code>123 Fake Street</code> instead of <code>123 Fake St</code>. And make sure to only add one address at a time. Do not use <code>123 and 124 Fake Street</code> because that won't work!</p>
+          <code>123 Fake Street</code> instead of <code>123 Fake St</code>. And make sure to only add one address at a
+          time. Do not use <code>123 and 124 Fake Street</code> because that won't work!
+        </p>
         <AddressForm @address-added="addAddress" @error="errorAdding" :addresses="addresses" :maxAddresses="40" />
         <p class="alert alert-danger" v-if="error">{{ error }}</p>
       </AccordionItem>
@@ -104,6 +106,39 @@
         </div>
 
 
+      </AccordionItem>
+      <AccordionItem header="Additional Information" id="extrainfo">
+        <h4>How does this site work?</h4>
+        <p>The site uses two services: OpenStreetMap's Nominatim service, and OpenRouteService's route optimization
+          service. When you add an address, the address is sent to Nominatim, and a pair of coordinates are returned if
+          the location exists. When you click the button to get the optimized route, the list of coordinates are sent to
+          ORS who then return the same coordinates, but sorted by most efficient route.</p>
+        <p>Those coordinates are then turned back into physical addresses (because Nominatim isn't very accurate) and a
+          Google Maps link is generated that you can click on to use to navigate.</p>
+
+        <h4>When I click the link on my computer, I can't find the button to send the directions to my phone</h4>
+        <p>Normally Google Maps only lets you do 9 stops per trip, but if you build your own Google Maps link, you can
+          do up to 25 before it stops trying to navigate. In order to see the button to send to your phone or share the
+          link, you need to zoom out in your browser, usually by pressing <code>Ctrl+Minus</code> (or
+          <code>Cmd+Minus</code> on a Mac) until you can see the buttons at the bottom
+        </p>
+
+        <h4>When I open the link in Google Maps on my phone, it won't let me navigate, it just shows a preview and the
+          steps</h4>
+        <p>This is due to the aforementioned 9-stop limit. If you can open the site in Google Maps in the browser (not
+          the in Google Maps app!), then there will be a "Navigate In App" button you can click on in order to start
+          navigation.</p>
+        <p>This has only been tested on my Google Pixel 6, and not on any other phone or any other version of Google
+          Maps</p>
+
+        <h4>Why do I need to provide a key for ORS? Can't you give me one?</h4>
+        <p>This site runs entirely within your browser. If I were to set a default key, anyone could find it and use it,
+          and the 500 calls a day the free key gives you will disappear very quickly, so that's why the site needs you
+          to get your own key. The Nominatim system is a bit different, as they just require you to specify an email
+          address so they can see who is making calls and give you more calls per minute, no account required.</p>
+
+        <h4>Where can I report bugs?</h4>
+        <p>Open an issue on the Github repo <a href="https://github.com/grayda/xmas-lights/issues">here</a>. If you came here from my Facebook comment, you can reply there too.</p>
       </AccordionItem>
     </div>
   </div>

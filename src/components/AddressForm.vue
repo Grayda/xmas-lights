@@ -62,14 +62,14 @@ export default defineComponent({
         const { getLatLong, address, city, state, country, postcode, email, fullAddress, latitude, longitude } = useNominatim()
         return { getLatLong, address, city, state, country, postcode, email, fullAddress, latitude, longitude }
     },
-    props: ["addresses"],
+    props: ["addresses", 'maxAddresses'],
     computed: {
         canSubmit() {
             if(this.loading !== 'Add Address') {
                 return false
             }
             // No more than 25 addresses (24 + starting address)
-            if (this.addresses.length >= 24) {
+            if (this.addresses.length >= this.maxAddresses) {
                 return false
             }
             

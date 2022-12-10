@@ -8,7 +8,7 @@ export function useORS() {
     const apiKey = ref("")
 
     // Sends a list of routes to RouteXL for optmization
-    async function optimizeRoute(routes: Array<Record<string, any>>, startIndex: number) {
+    async function optimizeRoute(routes: Array<Record<string, any>>, startIndex: number, stopIndex: number) {
 
         const data: {
             jobs: Record<string, any>,
@@ -54,6 +54,7 @@ export function useORS() {
             const opt: Record<string, any> = []
 
             const startingAddress = routes[startIndex]
+            const stopAddress = routes[stopIndex]
             opt.push(startingAddress)
 
             response['routes'][0]['steps'].forEach((route: Record<string, any>) => {
@@ -62,9 +63,8 @@ export function useORS() {
                 }
             })
 
-            opt.push(startingAddress)
-
-
+            opt.push(stopAddress)
+                
             optimizedRoute.value = opt
 
         })

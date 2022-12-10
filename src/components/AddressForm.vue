@@ -68,8 +68,8 @@ export default defineComponent({
             if(this.loading !== 'Add Address') {
                 return false
             }
-            // No more than 20 addresses!
-            if (this.addresses.length >= 20) {
+            // No more than 25 addresses (24 + starting address)
+            if (this.addresses.length >= 24) {
                 return false
             }
             

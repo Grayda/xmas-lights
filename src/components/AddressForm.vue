@@ -95,6 +95,7 @@ export default defineComponent({
                 this.loading = "Add Address"
                 this.$emit('address-added', {
                     address: this.address,
+                    fullAddress: this.fullAddress,
                     city: this.city,
                     state: this.state,
                     country: this.country,
@@ -102,6 +103,8 @@ export default defineComponent({
                     latitude: this.latitude,
                     longitude: this.longitude
                 })
+                this.address = ""
+
             } catch (ex: any) {
                 this.$emit('error', {
                     fullAddress: this.fullAddress,

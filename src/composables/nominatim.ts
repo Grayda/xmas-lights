@@ -1,18 +1,19 @@
 import { ref } from 'vue'
+import type { Ref } from 'vue'
 
 export function useNominatim() {
 
     // The locations
     const email = ref(null)
-    const address = ref(null)
+    const address = ref("")
     const city = ref(null)
     const state = ref(null)
     const country = ref(null)
     const postcode = ref(null)
     // The full address for convenience purposes
     const fullAddress = ref()
-    const latitude = ref(0)
-    const longitude = ref(0)
+    const latitude: Ref<number> = ref(0)
+    const longitude: Ref<number> = ref(0)
 
     // Given the address parts, gets the latitude and longitude
     // for route optimization purposes
@@ -57,8 +58,8 @@ export function useNominatim() {
             }
         }).then((response) => {
             if (response.length > 0) {
-                latitude.value = response[0].lat
-                longitude.value = response[0].lon
+                latitude.value = parseFloat(response[0].lat)
+                longitude.value = parseFloat(response[0].lon)
                 return true
             } else {
                 throw new Error("Unable to find " + fullAddress.value + ". Check for spelling mistakes and try again!")
@@ -67,8 +68,6 @@ export function useNominatim() {
         }).catch((ex) => {
             throw new Error(ex)
         })
-
-        
 
         return true
     }

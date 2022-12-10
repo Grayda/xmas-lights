@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="address, key in addresses" :key="address" scope="row">
+            <tr v-for="address, key in addresses" :key="address.address" scope="row">
               <td>{{ address["address"] }}</td>
               <td>{{ address["city"] }}</td>
               <td>{{ address["state"] }}</td>

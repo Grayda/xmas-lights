@@ -18,7 +18,7 @@ export function useORS() {
             vehicles: []
         }
 
-        routes.forEach((route: Record<string, any>, index: any, arr: number) => {
+        routes.forEach((route: Record<string, any>, index: any, arr: any) => {
             if (index != startIndex) {
                 data.jobs.push({
                     id: index,
